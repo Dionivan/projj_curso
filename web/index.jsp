@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Bem vindo | PÃ¡gina Inicial</title>
+    <title>Página Inicial</title>
     <style>
         body {
             background-color: black;
@@ -19,7 +19,7 @@
         .crawl-text {
             position: absolute;
             bottom: 0;
-            animation: crawl 60s linear infinite;
+            animation: crawl 120s linear infinite;
         }
         
         @keyframes crawl {
@@ -61,14 +61,18 @@
     <div class="crawl-container">
         <div class="crawl-text">
             <h1>Bem-vindo ao Sistema de Estudos</h1>
-            <p>Que a forï¿½a esteja com vocï¿½ nos seus estudos!</p>
+            <p>Que a força esteja com você nos seus estudos!</p>
+            <p>Estude com dedicação, comprometimento e perseverança.</p>
+            <p>A busca pelo conhecimento é uma jornada sem fim.</p>
+            <p>Prepare-se para alcançar seus objetivos e sonhos.</p>
+            <p>Comece agora mesmo e aproveite sua jornada de aprendizado!</p>
         </div>
     </div>
     
     <div class="login-form">
         <h2>Login do Aluno</h2>
         <form action="Login" method="post">
-            <input type="text" name="user" placeholder="Usuï¿½rio" required><br>
+            <input type="text" name="user" placeholder="Usuário" required><br>
             <input type="password" name="pass" placeholder="Senha" required><br>
             <input type="submit" value="Entrar">
         </form>
