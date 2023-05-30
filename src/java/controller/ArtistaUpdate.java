@@ -7,55 +7,45 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.User;
+import java.sql.SQLException;
+import model.Artista;
+import model.ArtistaDAO;
 
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
-    //Atributos
-    private String user;
-    private String pass;
+
+@WebServlet(name = "ArtistaUpdate", urlPatterns = {"/ArtistaUpdate"})
+public class ArtistaUpdate extends HttpServlet {
+
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        this.user = request.getParameter("user");
-        this.pass = request.getParameter("pass");
+        //Recebendo o ID
+        int id = Integer.parseInt(request.getParameter("id"));
         
-        User objUser = new User(this.user, this.pass);
-        
-        if(objUser.isLogged()) {
-            HttpSession session = request.getSession();
-            session.setAttribute("userLoggedSession", objUser);
-            request.setAttribute("userLogged", objUser);
-            request.getRequestDispatcher("home.jsp")
+        //Pegando registro do BD
+        try {
+            ArtistaDAO adao = new ArtistaDAO();
+            Artista art = adao.listById(id);
+            request.setAttribute("artista", art);
+            request.getRequestDispatcher("edit-artista.jsp")
                     .forward(request, response);
-        } else {
-            PrintWriter out = response.getWriter();
-            out.print(
-                    "<script>"
-                    + "alert('Acesso negado!');"
-                    + "window.location.replace('index.html');"
-                    + "</script>"
-            );
-        }
-        
-        
+        } catch(SQLException | ClassNotFoundException erro) {
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
+            out.println("<title>Servlet ArtistaUpdate</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Erro: " + erro + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
